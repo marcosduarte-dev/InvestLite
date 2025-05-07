@@ -1,0 +1,43 @@
+<main class="container">
+  <div class="login-container">
+    <div class="login-box">
+      <div class="welcome-text">
+        <h1>👋 Olá! Seja Bem Vindo ao InvestLite</h1>
+        <p>Selecione um perfil para entrar no sistema</p>
+      </div>
+  
+      <div class="avatar-container">
+        <img src="assets/avatar.png" alt="Profile Avatar" class="profile-avatar">
+      </div>
+  
+      <div class="user-selection">
+        <p-dropdown 
+          [options]="usuarios"
+          [(ngModel)]="selectedUser"
+          [style]="{'width': '100%'}"
+          placeholder="Selecione um usuário"
+          (onChange)="onUserSelect()"
+          optionLabel="nome"
+          styleClass="custom-dropdown">
+        </p-dropdown>
+      </div>
+
+      <div class="buttons-container">
+        <p-button 
+          label="Entrar" 
+          icon="pi pi-sign-in" 
+          (onClick)="onEnter()"
+          [disabled]="!selectedUser"
+          styleClass="p-button-primary enter-button">
+        </p-button>
+  
+        <p-button 
+          label="Novo Perfil" 
+          icon="pi pi-user-plus" 
+          (onClick)="onNewProfile()"
+          styleClass="p-button-secondary new-profile-button">
+        </p-button>
+      </div>
+    </div>
+  </div>
+</main>
