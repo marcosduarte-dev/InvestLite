@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-import { invoke } from "@tauri-apps/api/core";
-import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { Usuario } from './models/Usuario';
+import { UsuariosService } from './services/usuarios.service';
+import { PrimeNGModule } from './module/primeNgModule';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ButtonModule, DropdownModule, FormsModule ],
+  imports: [CommonModule, RouterOutlet, PrimeNGModule, FormsModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
   selectedUser: string = '';
-  users: string[] = ['Marcos', 'João', 'Maria']; // Exemplo de usuários
+  visibleNovoPerfil: boolean = false;
   usuarios: Usuario[] = []
 
-  constructor(private router: Router) {}
+  // Campos do modal
+  nome: string = '';
+  email: string = '';
+  avatar: string = '';
+
+  constructor(private router: Router, private usuariosService: UsuariosService) {}
 
   ngOnInit() {
-    this.listarUsuarios()
+    this.listarUsuarios();
   }
 
   onUserSelect() {
@@ -43,17 +47,10 @@ export class AppComponent implements OnInit{
 
   onNewProfile() {
     console.log('Criando novo perfil');
-    // Adicione aqui a lógica para criar novo perfil
+    this.visibleNovoPerfil = true;
   }
 
-  listarUsuarios(): Usuario[] {
-    try {
-      invoke('listar_usuarios', {}).then((usuarios: any) => {
-        this.usuarios = usuarios
-      });
-    } catch (error) {
-      console.error('Erro ao adicionar investimento:', error);
-    }
-    return []
+  async listarUsuarios() {
+    this.usuarios = await this.usuariosService.listarUsuarios();
   }
 }
