@@ -46,8 +46,30 @@ export class AppComponent implements OnInit{
   }
 
   onNewProfile() {
-    console.log('Criando novo perfil');
     this.visibleNovoPerfil = true;
+  }
+
+  cancelarCriarPerfil() {
+    this.nome = "";
+    this.email = "";
+    this.visibleNovoPerfil = false;
+  }
+
+  criarPerfil() {
+    try {
+      let usuario: Usuario = new Usuario();
+      usuario.nome = this.nome;
+      usuario.email = this.email;
+      usuario.avatar = this.avatar;
+
+      this.usuariosService.adicionarUsuario(usuario);
+      this.listarUsuarios();
+      this.visibleNovoPerfil = false;
+    } catch (error) {
+      //#TODO: Notificacao erro
+      console.log("Erro ao criar perfil:")
+    }
+    
   }
 
   async listarUsuarios() {

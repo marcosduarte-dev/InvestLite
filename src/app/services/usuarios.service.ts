@@ -17,4 +17,12 @@ export class UsuariosService {
     }
   }
 
+  async adicionarUsuario(usuario: Usuario): Promise<void> {
+    try {
+      await invoke('adicionar_usuario', {nome: usuario.nome, email: usuario.email});
+    } catch (error) {
+      console.error('Erro ao adicionar usuário:', error);
+    }
+  }
+
 }

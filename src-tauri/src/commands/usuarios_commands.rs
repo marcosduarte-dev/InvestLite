@@ -21,3 +21,20 @@ pub fn listar_usuarios(state: State<'_, AppState>) -> Result<Vec<Usuario>, Strin
 
     Ok(usuarios)
 }
+
+#[tauri::command]
+pub fn adicionar_usuario(
+    state: State<AppState>,
+    nome: String,
+    email: String,
+) -> Result<(), String> {
+    let db = state.db.lock().map_err(|e| e.to_string())?;
+    db.conn
+        .execute(
+            "INSERT INTO usuarios (nome, email) VALUES (?1, ?2)",
+            (&nome, &email),
+        )
+        .map_err(|e| e.to_string())?;
+    Ok(())
+
+}
