@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from '../models/Usuario';
 import { invoke } from '@tauri-apps/api/core';
+import { IUsuario } from '../interfaces/Usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
 
-  async listarUsuarios(): Promise<Usuario[]> {
+  async listarUsuarios(): Promise<IUsuario[]> {
     try {
-      const usuarios = await invoke<Usuario[]>('listar_usuarios', {});
+      const usuarios = await invoke<IUsuario[]>('listar_usuarios', {});
       return usuarios;
     } catch (error) {
       console.error('Erro ao listar usuários:', error);
@@ -17,9 +17,9 @@ export class UsuariosService {
     }
   }
 
-  async adicionarUsuario(usuario: Usuario): Promise<void> {
+  async adicionarUsuario(usuario: IUsuario): Promise<void> {
     try {
-      await invoke('adicionar_usuario', {nome: usuario.nome, email: usuario.email});
+      await invoke('adicionar_usuario', { nome: usuario.nome, email: usuario.email });
     } catch (error) {
       console.error('Erro ao adicionar usuário:', error);
     }

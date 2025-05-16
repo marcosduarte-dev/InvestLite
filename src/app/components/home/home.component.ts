@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Usuario } from '../../models/Usuario';
+import { IUsuario } from '../../interfaces/Usuario';
 import { Router, RouterOutlet } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios.service';
 import { PrimeNGModule } from '../../module/primeNgModule';
@@ -9,14 +9,14 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, PrimeNGModule, FormsModule],
+  imports: [CommonModule, PrimeNGModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
   selectedUser: string = '';
   visibleNovoPerfil: boolean = false;
-  usuarios: Usuario[] = []
+  usuarios: IUsuario[] = []
 
   // Campos do modal
   nome: string = '';
@@ -56,11 +56,12 @@ export class HomeComponent {
 
   criarPerfil() {
     try {
-      let usuario: Usuario = new Usuario();
-      usuario.nome = this.nome;
-      usuario.email = this.email;
-      usuario.avatar = this.avatar;
-
+      let usuario: IUsuario = {
+        id: 0,
+        nome: this.nome,
+        email: this.email,
+        avatar: this.avatar
+      };
       this.usuariosService.adicionarUsuario(usuario);
       this.listarUsuarios();
       this.visibleNovoPerfil = false;
