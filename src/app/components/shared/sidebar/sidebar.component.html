@@ -1,1 +1,55 @@
- 
+<div class="layout-wrapper">
+    <!-- Botão de toggle para mobile -->
+    <button *ngIf="isMobile" 
+            class="mobile-menu-button" 
+            (click)="toggleSidebar()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <p-sidebar [(visible)]="sidebarVisible" 
+               [showCloseIcon]="false" 
+               [baseZIndex]="10000" 
+               [styleClass]="collapsed ? 'custom-sidebar collapsed' : 'custom-sidebar'"
+               [dismissible]="isMobile"
+               [modal]="isMobile">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="Logo" class="logo" *ngIf="!collapsed">
+                <i class="pi pi-bars menu-toggle" (click)="toggleSidebar()"></i>
+            </div>
+        </div>
+
+        <div class="sidebar-content" [ngClass]="{'collapsed': collapsed}">
+            <ul class="menu-list">
+                <li [ngClass]="{'active': activeItem === 'dashboard'}" (click)="selectMenuItem('dashboard')">
+                    <a>
+                        <i class="pi pi-home"></i>
+                        <span *ngIf="!collapsed">Dashboard</span>
+                    </a>
+                </li>
+                <li [ngClass]="{'active': activeItem === 'transactions'}" (click)="selectMenuItem('transactions')">
+                    <a>
+                        <i class="pi pi-dollar"></i>
+                        <span *ngIf="!collapsed">Transações</span>
+                    </a>
+                </li>
+                <li [ngClass]="{'active': activeItem === 'wallet'}" (click)="selectMenuItem('wallet')">
+                    <a>
+                        <i class="pi pi-wallet"></i>
+                        <span *ngIf="!collapsed">Carteira</span>
+                    </a>
+                </li>
+                <li [ngClass]="{'active': activeItem === 'dividends'}" (click)="selectMenuItem('dividends')">
+                    <a>
+                        <i class="pi pi-chart-line"></i>
+                        <span *ngIf="!collapsed">Proventos</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </p-sidebar>
+
+    <div class="main-content" [ngClass]="{'sidebar-collapsed': collapsed && !isMobile}">
+        <h1>Conteúdo Principal</h1>
+    </div>
+</div>
