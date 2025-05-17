@@ -1,4 +1,4 @@
-<div class="layout-wrapper">
+<div class="layout-wrapper" [ngClass]="{'sidebar-collapsed': collapsed}" >
     <!-- Botão de toggle para mobile -->
     <button *ngIf="isMobile" 
             class="mobile-menu-button" 
@@ -9,10 +9,10 @@
     <p-sidebar [(visible)]="sidebarVisible" 
                [showCloseIcon]="false" 
                [baseZIndex]="10000" 
-               [styleClass]="collapsed ? 'custom-sidebar collapsed' : 'custom-sidebar'"
+               [styleClass]="collapsed ? 'collapsed' : 'custom-sidebar'"
                [dismissible]="isMobile"
                [modal]="isMobile">
-        <div class="sidebar-header">
+        <div class="sidebar-header" [ngClass]="{'collapsed': collapsed}">
             <div class="logo-container">
                 <img src="assets/logo.png" alt="Logo" class="logo" *ngIf="!collapsed">
                 <i class="pi pi-bars menu-toggle" (click)="toggleSidebar()"></i>

@@ -18,20 +18,32 @@
 }
 
 /* Estilização do Sidebar customizado */
-:host ::ng-deep .custom-sidebar .p-sidebar {
+:host ::ng-deep .p-sidebar {
     padding: 0;
-    background: #1e1e2d;
+    background: linear-gradient(180deg, #0a0a29 0%, #0f0f3d 100%);
     transition: all 0.3s ease;
 }
 
-:host ::ng-deep .custom-sidebar.collapsed .p-sidebar-content {
+:host ::ng-deep .p-sidebar-content {
+  padding: 0; !important
+}
+
+:host ::ng-deep .collapsed .p-sidebar-content {
     width: 80px !important;
+}
+
+:host ::ng-deep .sidebar-collapsed .p-sidebar-left  {
+  width: 80px !important;
 }
 
 /* Header do Sidebar */
 .sidebar-header {
     padding: 1rem;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.collapsed .logo-container i {
+  padding: 0 0.8rem; !important
 }
 
 .logo-container {
@@ -43,6 +55,8 @@
 .logo-container .logo {
     height: 40px;
 }
+
+
 
 .logo-container .menu-toggle {
     color: #ffffff;
@@ -60,10 +74,10 @@
 }
 
 .sidebar-content.collapsed .menu-list li {
-    padding: 0.5rem;
+    padding: 0.8rem 1.8rem;
 }
 
-.sidebar-content.collapsed .menu-list li span {
+.sidebar-header.collapsed .menu-list li span {
     display: none;
 }
 
